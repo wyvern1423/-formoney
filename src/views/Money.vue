@@ -1,7 +1,8 @@
 <template>
   <Layout class-prefix="layout">
+    {{record}}
     <NumberPad @update:value="onUpdateAmount"/>
-    <Types @update:value="onUpdateType"/>
+    <Types :value.sync="record.type"/>
     <Notes @update:value="onUpdateNotes"/>
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
   </Layout>
@@ -15,26 +16,30 @@
   import Tags from '@/components/Money/Tags.vue';
   import {Component} from 'vue-property-decorator';
 
+  type Record = {
+    tags: string[];
+    notes: string;
+    type: string;
+    amount: number;
+  }
+
   @Component({
     components: {Tags, Notes, Types, NumberPad}
   })
   export default class Money extends Vue {
     tags = ['衣', '食', '住', '行'];
+    record: Record = {tags: [], notes: '', type: '-', amount: 0};
 
-    onUpdateTags(value: string) {
-      console.log(value);
+    onUpdateTags(value: string[]) {
+      this.record.tags = value;
     }
 
     onUpdateNotes(value: string) {
-      console.log(value);
-    }
-
-    onUpdateType(value: string) {
-      console.log(value);
+      this.record.notes = value;
     }
 
     onUpdateAmount(value: string) {
-      console.log(value);
+      this.record.amount = parseFloat(value);
     }
   }
 

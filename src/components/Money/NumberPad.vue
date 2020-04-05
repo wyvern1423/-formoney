@@ -58,7 +58,7 @@
       this.output = '0';
     }
     ok(){
-      console.log(this.output)
+      this.$emit('update:value',this.output)
     }
 
   }
