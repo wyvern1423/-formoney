@@ -28,6 +28,7 @@
       } else {
         this.selectedTags.push(tag);
       }
+      this.$emit('onUpdate:value',this.selectedTags)
     }
 
     create() {
