@@ -1,6 +1,5 @@
 <template>
   <Layout class-prefix="layout">
-    {{recordList}}
     <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
     <Types :value.sync="record.type"/>
     <Notes @update:value="onUpdateNotes"/>
@@ -15,7 +14,8 @@
   import Notes from '@/components/Money/Notes.vue';
   import Tags from '@/components/Money/Tags.vue';
   import {Component, Watch} from 'vue-property-decorator';
-  import model from '@/model';
+  import recordListModel from '@/models/recordListModel';
+  import tagListModel from '@/models/tagListMedel';
 
   // const version = window.localStorage.getItem('version') || '0';
   // const recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
@@ -28,14 +28,16 @@
   //
   // window.localStorage.setItem('version', '0.0.2');
 
-  const recordList = model.fetch();
+  const recordList = recordListModel.fetch();
+  const tagList = tagListModel.fetch();
 
 
   @Component({
     components: {Tags, Notes, Types, NumberPad}
   })
   export default class Money extends Vue {
-    tags = ['衣', '食', '住', '行'];
+    tag = tagList;
+    // tags = ['衣', '食', '住', '行'];
     record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};
     recordList: RecordItem[] = recordList;
 
@@ -49,14 +51,14 @@
     }
 
     saveRecord() {
-      const recordDeepCopy = model.clone(this.record);
+      const recordDeepCopy = recordListModel.clone(this.record);
       recordDeepCopy.createdAt = new Date();
       this.recordList.push(recordDeepCopy);
     }
 
     @Watch('recordList')
     onRecordListChanged() {
-      model.save(this.recordList);
+      recordListModel.save(this.recordList);
     }
   }
 
