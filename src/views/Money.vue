@@ -1,6 +1,5 @@
 <template>
   <Layout class-prefix="layout">
-    {{record}}
     <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
     <Types :value.sync="record.type"/>
     <Notes @update:value="onUpdateNotes"/>
@@ -16,11 +15,23 @@
   import Tags from '@/components/Money/Tags.vue';
   import {Component, Watch} from 'vue-property-decorator';
 
+  // const version = window.localStorage.getItem('version') || '0';
+  // const recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
+  // if ((version === '0.0.1')){
+  //   recordList.forEach(record =>{
+  //     record.createdAt = new Date(2020,0,1);
+  //   })
+  //   window.localStorage.setItem('recordList',JSON.stringify(recordList));
+  // }
+  //
+  // window.localStorage.setItem('version', '0.0.2');
+
   type Record = {
     tags: string[];
     notes: string;
     type: string;
     amount: number;
+    createdAt?: Date;
   }
 
   @Component({
@@ -29,7 +40,7 @@
   export default class Money extends Vue {
     tags = ['衣', '食', '住', '行'];
     record: Record = {tags: [], notes: '', type: '-', amount: 0};
-    recordList: Record[] = [];
+    recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
 
     onUpdateTags(value: string[]) {
       this.record.tags = value;
@@ -40,7 +51,8 @@
     }
 
     saveRecord() {
-      const recordDeepCopy = JSON.parse(JSON.stringify(this.record));
+      const recordDeepCopy: Record = JSON.parse(JSON.stringify(this.record));
+      recordDeepCopy.createdAt = new Date();
       this.recordList.push(recordDeepCopy);
     }
 
