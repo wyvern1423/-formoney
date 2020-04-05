@@ -64,7 +64,7 @@
     ok() {
       this.$emit('update:value', this.output);
       this.$emit('submit', this.output);
-      this.output = this.value.toString();
+      this.output = '0';
     }
 
   }
