@@ -1,7 +1,7 @@
 <template>
   <label class="formItem">
     <span class="name">{{this.fieldName}}</span>
-    <input id="xxx" type="text" v-model="value" :placeholder="this.placeholder">
+    <input id="xxx" type="text" :value="value" @input="onValueChanged($event.target.value)" :placeholder="this.placeholder">
   </label>
 </template>
 
