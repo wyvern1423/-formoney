@@ -51,6 +51,7 @@
       if (this.tag) {
         if (tagListModel.remove(this.tag.id)) {
           this.$router.back();
+          window.tagList = tagListModel.fetch();
         }
       }
     }
