@@ -32,12 +32,13 @@
   const tagList = tagListModel.fetch();
 
 
+
   @Component({
     components: {Tags, Notes, Types, NumberPad}
   })
   export default class Money extends Vue {
-    tagS = tagList;
-    // tags = ['衣', '食', '住', '行'];
+    tags = tagList;
+
     record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};
     recordList: RecordItem[] = recordList;
 
