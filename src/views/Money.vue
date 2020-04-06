@@ -17,9 +17,7 @@
   import Types from '@/components/Money/Types.vue';
   import FormItem from '@/components/Money/FormItem.vue';
   import Tags from '@/components/Money/Tags.vue';
-  import {Component, Watch} from 'vue-property-decorator';
-  import recordListModel from '@/models/recordListModel';
-  import tagListModel from '@/models/tagListMedel';
+  import {Component} from 'vue-property-decorator';
 
   // const version = window.localStorage.getItem('version') || '0';
   // const recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
@@ -32,8 +30,6 @@
   //
   // window.localStorage.setItem('version', '0.0.2');
 
-  const recordList = recordListModel.fetch();
-
 
 
   @Component({
@@ -43,7 +39,7 @@
     tags = window.tagList;
 
     record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};
-    recordList: RecordItem[] = recordList;
+    recordList: RecordItem[] = window.recordList;
 
 
     onUpdateTags(value: string[]) {
@@ -55,13 +51,13 @@
     }
 
     saveRecord() {
-      recordListModel.create(this.record);
+      window.createRecord(this.record);
     }
 
-    @Watch('recordList')
-    onRecordListChanged() {
-      recordListModel.save(this.recordList);
-    }
+    // @Watch('recordList')
+    // onRecordListChanged() {
+    //   recordListModel.save(this.recordList);
+    // }
   }
 
 </script>

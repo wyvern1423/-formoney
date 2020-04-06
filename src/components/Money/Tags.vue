@@ -16,10 +16,13 @@
   import Vue from 'vue';
   import {Component, Prop} from 'vue-property-decorator';
 
+  window.tagList;
+
   @Component
   export default class Tags extends Vue {
-    @Prop() readonly dataSource: string[] | undefined;
+    // @Prop() readonly dataSource: string[] | undefined;
     selectedTags: string[] = [];
+    dataSource = window.tagList
 
     toggle(tag: string) {
       const index = this.selectedTags.indexOf(tag);
@@ -28,15 +31,23 @@
       } else {
         this.selectedTags.push(tag);
       }
-      this.$emit('update:value',this.selectedTags)
+      this.$emit('update:value', this.selectedTags);
     }
 
     create() {
       const name = window.prompt('请输入标签名');
-      if (name === '') {
+      // if (name === '') {
+      //   window.alert('标签不能为空');
+      // } else{
+      //   window.createTag(name)
+      // }
+      //   if (this.dataSource) {
+      //   this.$emit('update:dataSource', [...this.dataSource, name]);
+      // }
+      if(name!= '' && name != null){
+        window.createTag(name)
+      }else {
         window.alert('标签不能为空');
-      } else if (this.dataSource) {
-        this.$emit('update:dataSource', [...this.dataSource, name]);
       }
     }
   }

@@ -29,7 +29,7 @@
     tag?: { id: string; name: string } = undefined;
 
     created() {
-      this.tag = window.findTag(this.$route.params.id)
+      this.tag = window.findTag(this.$route.params.id);
       if (!this.tag) {
         this.$router.replace('/404');
       }
@@ -48,7 +48,8 @@
         }
       }
     }
-    goBack(){
+
+    goBack() {
       this.$router.back();
     }
   }
