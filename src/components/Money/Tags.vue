@@ -19,7 +19,14 @@
 
 
 
-  @Component
+  @Component({
+    computed:{
+      tagList1(){
+        // return this.$store.fetcgTags():
+        return[]
+      }
+    }
+  })
   export default class Tags extends Vue {
     selectedTags: string[] = [];
     tagList = store.tagList
