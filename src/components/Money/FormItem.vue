@@ -1,7 +1,7 @@
 <template>
   <label class="formItem">
     <span class="name">{{this.fieldName}}</span>
-    <input id="xxx" type="text" :value="value" @input="onValueChanged($event.target.value)" :placeholder="this.placeholder">
+    <input id="xxx" type="text" :value="value" @input="onValueChanged($event.target.value)" :placeholder="placeholder">
   </label>
 </template>
 
@@ -17,7 +17,7 @@
     @Prop() placeholder?: string;
     @Prop({default:''}) value!: string;
 
-    @Watch('value')
+    // @Watch('value')
     onValueChanged(value: string) {
       this.$emit('update:value', value);
     }
