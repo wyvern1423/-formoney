@@ -36,7 +36,6 @@
   const tagList = tagListModel.fetch();
 
 
-
   @Component({
     components: {Tags, FormItem, Types, NumberPad}
   })
@@ -56,9 +55,7 @@
     }
 
     saveRecord() {
-      const recordDeepCopy = recordListModel.clone(this.record);
-      recordDeepCopy.createdAt = new Date();
-      this.recordList.push(recordDeepCopy);
+      recordListModel.create(this.record);
     }
 
     @Watch('recordList')
@@ -73,7 +70,8 @@
     display: flex;
     flex-direction: column-reverse;
   }
-  .notes{
+
+  .notes {
     padding: 12px 0;
   }
 </style>
