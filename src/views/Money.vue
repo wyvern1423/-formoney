@@ -54,11 +54,6 @@
     saveRecord() {
       store.createRecord(this.record);
     }
-
-    // @Watch('recordList')
-    // onRecordListChanged() {
-    //   recordListModel.save(this.recordList);
-    // }
   }
 
 </script>
