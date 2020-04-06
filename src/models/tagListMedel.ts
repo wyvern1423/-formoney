@@ -16,7 +16,7 @@ const tagListModel: TagListModel = {
       return 'duplicated';
     }
     const id = createId().toString();
-    this.data.push({id: name, name: name});
+    this.data.push({id: id, name: name});
     this.save();
     return 'success';
   },
