@@ -11,10 +11,11 @@
 
   @Component
   export default class FormItem extends Vue {
-    value = '';
+    // value = '';
 
     @Prop({required: true}) fieldName!: string;
     @Prop() placeholder?: string;
+    @Prop({default:''}) value!: string;
 
     @Watch('value')
     onValueChanged(value: string) {
