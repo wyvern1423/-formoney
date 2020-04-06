@@ -25,6 +25,14 @@ window.createTag = (name: string) => {
     }
   }
 };
+window.removeTag = (id: string) => {
+  if (tagListModel.remove(id)) {
+    window.tagList = tagListModel.fetch();
+    return true;
+  } else {
+    return false;
+  }
+};
 
 new Vue({
   router,
