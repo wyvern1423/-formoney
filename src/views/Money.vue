@@ -36,7 +36,7 @@
     components: {Tags, Notes, Types, NumberPad}
   })
   export default class Money extends Vue {
-    tag = tagList;
+    tagS = tagList;
     // tags = ['衣', '食', '住', '行'];
     record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};
     recordList: RecordItem[] = recordList;
