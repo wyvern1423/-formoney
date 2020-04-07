@@ -4,8 +4,8 @@
       <button @click="create">新增标签</button>
     </div>
     <ul class="current">
-      <li v-for="tag in tagList" :key="tag.id" :class="{selected:selectedTags.indexOf(tag.name)>=0}"
-          @click="toggle(tag.name)">
+      <li v-for="tag in tagList" :key="tag.id" :class="{selected:selectedTags.indexOf(tag)>=0}"
+          @click="toggle(tag)">
         {{tag.name}}
       </li>
     </ul>
@@ -15,21 +15,24 @@
 <script lang="ts">
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
-  import store from '@/store/index2';
-
+  // import store from '@/store/index2';
 
 
   @Component({
-    computed:{
-      tagList1(){
-        // return this.$store.fetcgTags():
-        return[]
+    computed: {
+      tagList() {
+        return this.$store.state.tagList;
       }
     }
   })
   export default class Tags extends Vue {
     selectedTags: string[] = [];
-    tagList = store.tagList
+
+    // tagList = store.tagList
+
+    created() {
+      this.$store.commit('fetchTags');
+    }
 
     toggle(tag: string) {
       const index = this.selectedTags.indexOf(tag);
@@ -42,12 +45,15 @@
     }
 
     create() {
+      // TODO
       const name = window.prompt('请输入标签名');
-      if(name!= '' && name != null){
-        store.createTag(name)
-      }else {
-        window.alert('标签不能为空');
-      }
+      if (!name) {return window.alert('标签不能为空');}
+      this.$store.commit('createTag', name);
+      // if(name!= '' && name != null){
+      //   store.createTag(name)
+      // }else {
+      //   window.alert('标签不能为空');
+      // }
     }
   }
 </script>
