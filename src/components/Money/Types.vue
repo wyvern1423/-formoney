@@ -11,10 +11,7 @@
 
   @Component
   export default class Types extends Vue {
-    type = '-'; // '-'表示支出，'+'表示收入
-
-    // @Prop(Number) readonly propA: number | undefined;
-    @Prop() readonly  value!: string;
+    @Prop() readonly value!: string;
 
     selectType(type: string) {
       if (type !== '-' && type !== '+') {
@@ -22,12 +19,6 @@
       }
       this.$emit('update:value', type);
     }
-
-    @Watch('type')
-    onTypeChanged(value: string) {
-      this.$emit('update:value', value);
-    }
-
   }
 
 </script>

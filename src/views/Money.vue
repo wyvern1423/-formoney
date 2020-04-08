@@ -17,7 +17,6 @@
   import Tags from '@/components/Money/Tags.vue';
   import {Component} from 'vue-property-decorator';
   import oldStore from '@/store/index2';
-  // import store from '@/store/index'
 
   // const version = window.localStorage.getItem('version') || '0';
   // const recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
@@ -33,13 +32,11 @@
 
   @Component({
     components: {Tags, FormItem, Types, NumberPad},
-    computed: {
-      recordList() {
-        return this.$store.state.recordList;
-      }
-    }
   })
   export default class Money extends Vue {
+    get recordList(){
+      return this.$store.state.recordList;
+    }
     tags = oldStore.tagList;
 
     record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};
