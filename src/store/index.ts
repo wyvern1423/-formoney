@@ -24,7 +24,7 @@ const store = new Vuex.Store({
     },
     createRecord(state, record) {
       const recordDeepCopy = clone(record);
-      recordDeepCopy.createdAt = new Date();
+      recordDeepCopy.createdAt = new Date().toISOString();
       state.recordList && state.recordList.push(recordDeepCopy);
       store.commit('saveRecords');
     },

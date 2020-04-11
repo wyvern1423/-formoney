@@ -15,7 +15,7 @@ const recordStore = {
 
   createRecord(record: RecordItem){
     const recordDeepCopy = clone(record);
-    recordDeepCopy.createdAt = new Date();
+    recordDeepCopy.createdAt = new Date().toISOString();
     this.recordList && this.recordList.push(recordDeepCopy);
     recordStore.saveRecords();
   },
