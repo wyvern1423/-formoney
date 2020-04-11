@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "core-js": "^3.6.4",
+    "dayjs": "^1.8.24",
     "path": "^0.12.7",
     "register-service-worker": "^1.6.2",
     "svgo-loader": "^2.2.1",
