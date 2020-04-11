@@ -1,14 +1,20 @@
 type RecordItem = {
-  tags: string[];
+  tags: Tag[];
   notes: string;
   type: string;
   amount: number;
-  createdAt?: String;
+  createdAt?: string;
 }
 type Tag = {
   id: string;
   name: string;
 }
+type RootState = {
+  recordList: RecordItem[],
+  tagList: Tag[],
+  currentTag?: Tag
+}
+
 type TagListModel = {
   data: Tag[]
   fetch: () => Tag[]
@@ -17,8 +23,8 @@ type TagListModel = {
   update: (id: string, name: string) => 'success' | 'not found' | 'duplicated'
   remove: (id: string) => boolean
 }
-type RecordList ={
-  recordList:RecordItem[]
+type RecordList = {
+  recordList: RecordItem[]
 }
 
 interface Window {

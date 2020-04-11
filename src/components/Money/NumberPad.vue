@@ -28,13 +28,12 @@
   @Component
   export default class NumberPad extends Vue {
 
-    @Prop() value!: number;
+    @Prop(Number) value!: number;
     output = this.value.toString();
 
     innerContext(event: MouseEvent) {
       const button = (event.target as HTMLButtonElement);
       const input = button.textContent as string;
-      // console.log(this.output.indexOf('.'));
       if (this.output.length === 16) {return;}
       if (this.output === '0') {
         if (input === '0') {
@@ -62,8 +61,9 @@
     }
 
     ok() {
-      this.$emit('update:value', this.output);
-      this.$emit('submit', this.output);
+      const number = parseFloat(this.output);
+      this.$emit('update:value', number);
+      this.$emit('submit', number);
       this.output = '0';
     }
 
