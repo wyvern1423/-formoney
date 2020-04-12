@@ -9,14 +9,16 @@ Vue.use(Vuex);
 type RootState = {
   recordList: RecordItem[],
   tagList: Tag[],
-  currentTag?: Tag
+  currentTag?: Tag,
+  createTagStatus?: boolean,
 }
 
 const store = new Vuex.Store({
   state: {
     recordList: [],
     tagList: [],
-    currentTag: undefined
+    currentTag: undefined,
+    createTagStatus: false,
   } as RootState,
   mutations: {
     fetchRecords(state) {
@@ -27,24 +29,32 @@ const store = new Vuex.Store({
       recordDeepCopy.createdAt = new Date().toISOString();
       state.recordList && state.recordList.push(recordDeepCopy);
       store.commit('saveRecords');
+      window.alert('已保存');
     },
     saveRecords(state) {
       window.localStorage.setItem('recordList', JSON.stringify(state.recordList));
     },
     fetchTags(state) {
       state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
+      if (!state.tagList || state.tagList.length === 0) {
+        store.commit('createTag', '衣');
+        store.commit('createTag', '食');
+        store.commit('createTag', '住');
+        store.commit('createTag', '行');
+      }
     },
     createTag(state, name: string) {
       const names = state.tagList.map(function (item) {
         return item.name;
       });
       if (names.indexOf(name) >= 0) {
+        state.createTagStatus = false;
         window.alert('标签名重复');
       } else {
         const id = createId().toString();
         state.tagList.push({id: id, name: name});
         store.commit('saveTags');
-        window.alert('添加成功');
+        state.createTagStatus = true;
       }
     },
     saveTags(state) {

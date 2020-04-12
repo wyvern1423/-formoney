@@ -12,7 +12,8 @@ type Tag = {
 type RootState = {
   recordList: RecordItem[],
   tagList: Tag[],
-  currentTag?: Tag
+  currentTag?: Tag,
+  createTagStatus?: boolean,
 }
 
 type TagListModel = {

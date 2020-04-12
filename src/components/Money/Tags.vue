@@ -4,7 +4,7 @@
       <button @click="createTag">新增标签</button>
     </div>
     <ul class="current">
-      <li v-for="tag in tagList" :key="tag.id" :class="{selected:selectedTags.indexOf(tag.name)>=0}"
+      <li v-for="tag in tagList" :key="tag.id" :class="{selected:value.indexOf(tag.name)>=0}"
           @click="toggle(tag.name)">
         {{tag.name}}
       </li>
@@ -13,16 +13,17 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Prop} from 'vue-property-decorator';
   import {mixins} from 'vue-class-component';
   import {TagHelper} from '@/mixins/TagHelper';
 
 
   @Component
   export default class Tags extends mixins(TagHelper) {
+    @Prop() value?: string[];
     selectedTags: string[] = [];
-    get tagList(){
+
+    get tagList() {
       return this.$store.state.tagList;
     }
 

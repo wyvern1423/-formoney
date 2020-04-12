@@ -7,17 +7,15 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component, Prop, Watch} from 'vue-property-decorator';
+  import {Component, Prop} from 'vue-property-decorator';
 
   @Component
   export default class FormItem extends Vue {
-    // value = '';
 
     @Prop({required: true}) fieldName!: string;
     @Prop() placeholder?: string;
-    @Prop({default:''}) value!: string;
+    @Prop({default: ''}) value!: string;
 
-    // @Watch('value')
     onValueChanged(value: string) {
       this.$emit('update:value', value);
     }
@@ -32,7 +30,6 @@
 
 <style lang="scss" scoped>
   .formItem {
-    display: block;
     padding-left: 16px;
     font-size: 14px;
     display: flex;

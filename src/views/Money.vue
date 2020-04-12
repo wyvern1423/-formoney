@@ -3,9 +3,9 @@
     <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
     <Tabs :data-source="recordTypeList" :value.sync="record.type"/>
     <div class="notes">
-      <FormItem field-name="备注" @update:value="onUpdateNotes" placeholder="在这里输入"/>
+      <FormItem field-name="备注" :value.sync="record.notes" placeholder="在这里输入"/>
     </div>
-    <Tags @update:value="onUpdateTags"/>
+    <Tags @update:value="onUpdateTags" :value="record.tags"/>
   </Layout>
 </template>
 
@@ -44,8 +44,6 @@
 
     record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};
 
-    // recordList: RecordItem[] = oldStore.recordList;
-
     created() {
       this.$store.commit('fetchRecords');
     }
@@ -55,18 +53,23 @@
       this.record.tags = value;
     }
 
-    onUpdateNotes(value: string) {
-      this.record.notes = value;
-    }
+    // onUpdateNotes(value: string) {
+    //   this.record.notes = value;
+    // }
 
     saveRecord() {
-      // oldStore.createRecord(this.record);
+      if (!this.record.tags || this.record.tags.length === 0) {
+        window.alert('请选择至少一个标签');
+        return;
+      }
       this.$store.commit('createRecord', this.record);
+      this.record.tags = [];
+      this.record.notes= '';
     }
   }
 
 </script>
-<style lang="scss" >
+<style lang="scss">
   .layout-content {
     display: flex;
     flex-direction: column-reverse;
